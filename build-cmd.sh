@@ -9,10 +9,8 @@ set -u
 
 TOP="$(dirname "$0")"
 
-SDL_SOURCE_DIR="SDL2-2.0.20"
+SDL_SOURCE_DIR="SDL"
 SDL_MIXER_SOURCE_DIR="SDL_mixer"
-
-SDL_VERSION=$(sed -n -e 's/^Version: //p' "$TOP/$SDL_SOURCE_DIR/SDL2.spec")
 
 if [ -z "$AUTOBUILD" ] ; then 
     exit 1
@@ -76,6 +74,7 @@ case "$AUTOBUILD_PLATFORM" in
     ;;
 esac
 
+SDL_VERSION=$(sed -n -e 's/^Version: //p' "$TOP/$SDL_SOURCE_DIR/SDL2.spec")
 mkdir -p "$stage/LICENSES"
 cp "$TOP/$SDL_SOURCE_DIR/LICENSE.txt" "$stage/LICENSES/SDL2.txt"
 mkdir -p "$stage"/docs/SDL/
