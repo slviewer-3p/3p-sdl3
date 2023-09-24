@@ -64,9 +64,16 @@ case "$AUTOBUILD_PLATFORM" in
           make clean
         popd
         mkdir -p lib/release
-        mv lib64/*.a lib/release
-        mv lib64/*.so* lib/release
-        mv lib64/pkgconfig lib/release/
+        if [ -d lib64 ]
+        then
+            mv lib64/*.a lib/release
+            mv lib64/*.so* lib/release
+            mv lib64/pkgconfig lib/release/
+        else
+            mv lib/*.a lib/release
+            mv lib/*.so* lib/release
+            mv lib/pkgconfig lib/release/
+        fi
     ;;
 
     *)
