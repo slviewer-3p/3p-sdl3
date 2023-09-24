@@ -30,6 +30,7 @@ source_environment_tempfile="$stage/source_environment.sh"
 case "$AUTOBUILD_PLATFORM" in
 
     linux64)
+        rm -rf lib
         # Default target per autobuild --address-size
         opts="${TARGET_OPTS:-${AUTOBUILD_GCC_ARCH} $LL_BUILD_RELEASE}"
 
@@ -62,6 +63,10 @@ case "$AUTOBUILD_PLATFORM" in
           # clean the build tree
           make clean
         popd
+        mkdir -p lib/release
+        mv lib64/*.a lib/release
+        mv lib64/*.so* lib/release
+        mv lib64/pkgconfig lib/release/
     ;;
 
     *)
