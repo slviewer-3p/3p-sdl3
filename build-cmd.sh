@@ -43,28 +43,24 @@ case "$AUTOBUILD_PLATFORM" in
         fi
             
         pushd "$TOP/$SDL_SOURCE_DIR"
-            # do release build of sdl
-              CFLAGS="$opts" CXXFLAGS="$opts" CPPFLAGS="$opts" \
-              LDFLAGS="-L$stage/packages/lib/release -L$stage/lib/release $opts" \
-                ./configure --with-pic \
-                --prefix="$stage" --libdir="$stage/lib/release" --includedir="$stage/include"
-            make -j `nproc`
-            make install
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_INSTALL_PREFIX=${stage}
+          make -j `nproc`
+          make install
 
-            # clean the build tree
-            make distclean
+          # clean the build tree
+          make clean
         popd
         pushd "$TOP/$SDL_MIXER_SOURCE_DIR"
-            # do release build of sdl
-              CFLAGS="$opts" CXXFLAGS="$opts" CPPFLAGS="$opts" \
-              LDFLAGS="-L$stage/packages/lib/release -L$stage/lib/release $opts" \
-                ./configure --with-pic \
-                --prefix="$stage" --libdir="$stage/lib/release" --includedir="$stage/include"
-            make -j `nproc`
-            make install
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_INSTALL_PREFIX=${stage} -DCMAKE_MODULE_PATH=${stage}
+          make -j `nproc`
+          make install
 
-            # clean the build tree
-            make distclean
+          # clean the build tree
+          make clean
         popd
     ;;
 
@@ -74,7 +70,7 @@ case "$AUTOBUILD_PLATFORM" in
     ;;
 esac
 
-SDL_VERSION=$(sed -n -e 's/^Version: //p' "$TOP/$SDL_SOURCE_DIR/SDL2.spec")
+SDL_VERSION="3.0.0"
 mkdir -p "$stage/LICENSES"
 cp "$TOP/$SDL_SOURCE_DIR/LICENSE.txt" "$stage/LICENSES/SDL2.txt"
 mkdir -p "$stage"/docs/SDL/
