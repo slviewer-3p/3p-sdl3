@@ -84,6 +84,6 @@ esac
 
 SDL_VERSION="3.0.0"
 mkdir -p "$stage/LICENSES"
-cp "$TOP/$SDL_SOURCE_DIR/LICENSE.txt" "$stage/LICENSES/SDL2.txt"
+cp "$TOP/$SDL_SOURCE_DIR/LICENSE.txt" "$stage/LICENSES/SDL3.txt"
 mkdir -p "$stage"/docs/SDL/
 echo "$SDL_VERSION" > "$stage/VERSION.txt"
